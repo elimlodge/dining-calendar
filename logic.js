@@ -8,21 +8,36 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: window.innerWidth < 600 ? 'listMonth' : 'timeGridWeek',
-    googleCalendarApiKey: 'YOUR_API_KEY_HERE',
+    googleCalendarApiKey: 'AIzaSyCnkQ8YhGAJvj3T1ZkC_mbyV7VHtdSeGbQ',
     events: {
-      googleCalendarId: 'YOUR_CALENDAR_ID_HERE'
+      googleCalendarId: 'c_272aae55cf543768d533c80a54f778be256c8695049d05a8b1e254833eeef758@group.calendar.google.com'
     },
-    eventsSet: function() {
+    slotMinTime: '08:00:00',
+    slotMaxTime: '19:00:00',
+    visibleRange: function(currentDate) {
+      let startDate = currentDate;
+      let endDate = new Date(currentDate.valueOf());
+      endDate.setDate(endDate.getDate() + 6); // today + 6 = 7 days
+      return { start: startDate, end: endDate };
+    },
+    eventsSet: function(events) {
       calendarLoaded = true;
       spinnerEl.style.display = 'none';
       fallbackEl.style.display = 'none';
-      calendarEl.style.display = 'block';
+
+      if (events.length === 0) {
+        // Calendar loaded, but no events found — show fallback
+        fallbackEl.style.display = 'block';
+      } else {
+        // Show calendar
+        calendarEl.style.display = 'block';
+      }
     }
   });
 
   calendar.render();
 
-  // 5 second timeout fallback
+  // 5 second timeout fallback — calendar failed to load at all
   setTimeout(function() {
     if (!calendarLoaded) {
       spinnerRing.style.animation = 'none';
@@ -40,3 +55,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 });
+
