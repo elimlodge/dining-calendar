@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
       FullCalendarList,
       FullCalendarGoogleCalendar
     ],
-    googleCalendarApiKey: 'AIzaSyCnkQ8YhGAJvj3T1ZkC_mbyV7VHtdSeGbQ',
+    googleCalendarApiKey: 
     events: {
       googleCalendarId: 'c_272aae55cf543768d533c80a54f778be256c8695049d05a8b1e254833eeef758@group.calendar.google.com'
     },
